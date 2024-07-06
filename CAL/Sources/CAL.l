@@ -63,7 +63,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int yywrap() {return 1;}
+	int yywrap() {return 1;}
 
 	char * version()
 	{
