@@ -1,0 +1,36 @@
+#
+# Makefile for the Cray Assembly Language Translator
+#
+# Zorislav Shoyat, 24/3/2014, 16:17, Atelier, Shanti (Gu)
+#
+# V1.1 28/3/2014, 12:13, Atelier Shanti
+#      added multi-os support
+#      split to Makefile and makefile.COMMON
+#
+# V1.2 21/11/2014, 16:42, Kut Shanti
+#      defined the 'install:' target
+#
+# V1.2a 16/1/2015, 14:36, Atelier Grgur
+#      mkdir -p ${SYS}
+#
+
+${SYS}/CAL: ${SYS} ${SYS}/CAL.o ${SYS}/symtab.o
+	cd ${SYS}; ${CC} $(LDFLAGS) -o CAL CAL.o symtab.o $(LDLIBS)
+
+${SYS}/CAL.o: ${SYS}/CAL.c symbols.h
+	cd ${SYS}; ${CC} $(CCFLAGS) -c CAL.c
+
+${SYS}/CAL.c: CAL.l
+	cd ${SYS}; ${LEX} ../${SRCDIR}/CAL.l; mv lex.yy.c CAL.c
+
+${SYS}/symtab.o: symtab.c symbols.h
+	cd ${SYS}; ${CC} $(CCFLAGS) -c ../${SRCDIR}/symtab.c -o symtab.o
+
+${SYS}:
+	mkdir -p ${SYS}; cd ${SYS}; ln ../${SRCDIR}/symbols.h .
+
+install: ${INSTDIR}/CAL
+
+${INSTDIR}/CAL: ${SYS}/CAL
+	cp ${SYS}/CAL ${INSTDIR}/CAL
+

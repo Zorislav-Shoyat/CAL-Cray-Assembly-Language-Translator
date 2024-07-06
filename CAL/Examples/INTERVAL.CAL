@@ -1,0 +1,428 @@
+****************************************
+*23456789012345678901234567890123456789
+*        111111111122222222222333333333
+*xxx     yyy       zzz            comm
+****************************************
+*
+* ZORISLAV SHOYAT, 17/3/2014, 19:04
+*
+* FIRST VIRTUE KERNELS FOR CRAY-1
+* 3. INTERVAL
+*
+********************************************************************
+*
+* VIRTUE KERNELS ARE SUBROUTINES WHICH PERFORM BASIC
+* VIRTUE OPERATIONS, LIKE INTERVAL, MULTIPLICATIONS
+* ETC. ALL THE SUBROUTINES (SUB-WORDS) HAVE A UNIFIED
+* INTERFACE AND WORK ON STRAIGHT VECTORS:
+*
+*    INPUT: 
+*       NILADIC: NONE
+*                A3 - ADDRESS OF THE RESULT
+*                A4 - RESULT VECTOR LENGTH
+*       MONADIC: A1 - ADDRESS OF THE LEFT VECTOR
+*                A4 - VECTOR LENGTH - INPUT OR OUTPUT
+*       DYADIC: A1 - ADDRESS OF THE LEFT VECTOR
+*               A2 - ADDRESS OF THE RIGHT VECTOR
+*               A4 - VECTOR LENGTH (POSSIBLY I/O)
+*       TRIADIC ...: ALL ADDITIONAL PARAMETERS SHALL BE
+*                    ADDRESSED THROUGH B10..B77 (OR LESS...)
+*
+*    -- A4 INPUT LENGTH OF 0 MAKES A NOOP OF ANY OPERATION
+*       NOT SPECIFICALLY TREATING NILS
+*
+*    OUTPUT:
+*       A4 - VECTOR LENGTH ALWAYS CORRECT (ALSO IN B07), EXCEPT
+*            IF LONGER THAN PRESENT CRAY ADDRESS SIZE, THEN A4 IS
+*            -1, AND THE VECTOR LENGTH IS GIVEN IN S4
+*       ALL INPUT VECTOR ADDRESSES ARE INVALID
+*
+*    USE REGISTERS:
+*       THE SUBROUTINES MAY USE ANY OF THE A, S AND V REGISTERS
+*       AND THE B00 TO B07 ARE RESERVED (PERHAPS MANY MORE)
+*
+*    -- GENERALLY, THE INTERFACE IS SIMPLE:
+*       <LEFT = A1> <RIGHT = A2> <RESULT = A3> <VL = A4>               
+*
+*
+********************************************************************
+
+         START     COMPUTE
+         OPTIONS   LIST SHOWSF
+*         OPTIONS   SHOWSTAT
+********
+* test *
+********
+
+LEFT     DATA      300            * SCALAR
+RESULT   DATA      0,2048
+
+COMPUTE  =         *
+         S2        RT
+
+* INTEGER INTERVAL
+         A1        LEFT
+         A3        RESULT
+*                                 * FOR INTERVAL A4 NEEDS NO INITIALISATION
+         R         RSPACE
+
+         J         EOPROG
+
+****************************************
+*
+****************************************
+
+
+
+******************************************
+*
+* INTEGER INTERVAL
+*
+* NAME: ISPACE
+*
+* DESCRIPTION:
+*        AN INTERVAL FROM 1 TO (A1)
+*
+* ENTRY: A1 = LEFT ARGUMENT ADDRESS
+*        A3 = RESULT SPACE ADDRESS
+*        A4 = RESULT VECTOR LENGTH = (A1)
+*
+* EXIT: RESULT IN MEMORY AT A3
+*
+* USES: ...
+*
+* RESTRICTION:
+*       NO CHECKS ON THE VALIDITY OF THE
+*       OPERATION(S) ARE DONE ON THIS
+*       LEVEL OF EXECUTION
+*
+******************************************
+*
+ISPACE    =        *
+          A5       64            * LOAD THE WHOLE VECTOR
+          VL       A5
+          S4       ,A1           * GET THE INTERVAL
+          A0       ISPACDATA
+          V0       ,A0,1
+          V1       S0!V0         * START PREPARING THE NEXT POSSIBLE ITERATION
+          S5       S4            * KEEP TILL END
+*                                * NO HARM DONE IF NONE, AS THE OPRATIONS GO IN PARALLEL
+* PROCESS VECTORS LONGER THAN 64 ELEMENTS
+* ARRAYS MAY BE LARGER THAN THE PRESENT CRAY ADDRESS SPACE
+* WE CALCULATE WITH SCALARS
+         S7        S4            * PRESERVE LENGTH FOR CALCULATION
+         S2        <6
+         S1        S4
+         S1        S1&S2
+         A4        S1
+         S4        S1
+         S0        S1
+         JSN       SPACILOP
+         A4        64
+         S4        A4
+*
+* PROCESS:
+*    
+*
+SPACILOP VL        A4
+         A0        A3
+         ,A0,1     V1              * THE INTERVAL TO MEMORY
+         V2        S4+V0
+*
+* CHECK FOR MORE ELEMENTS
+         A1        A1+A4            * A STRIDE 1
+         A3        A3+A4            * NO RIGHT ARGUMENT (A2)
+         S7        S7-S4
+         A4        64
+         S4        A4
+         S6        A4       
+         S0        S7               * END CHECKED WITH S7, VECTOR LENGTH COUNTER
+         JSZ       SPACIRET
+         V3        S6+V1
+         V0        S0!V3
+* PIPE VECTORS, SECOND PHASE
+         VL        A4
+         A0        A3
+         ,A0,1     V2
+* CHECK FOR MORE ELEMENTS
+         A1        A1+A4            * A STRIDE 1
+         A3        A3+A4            * NO RIGHT ARGUMENT (A2)
+         S7        S7-S4
+         A4        64
+         S4        A4        
+         S0        S7               * END CHECKED WITH S7, VECTOR LENGTH COUNTER
+         JSZ       SPACIRET
+         V1        S0!V0
+         J         SPACILOP
+*
+SPACIRET A4        S5               * RETURN THE VECTOR LENGTH IN A4
+         S4        S5
+         J         B00
+
+*****************************************************
+*
+*****************************************************
+
+*****************************************************
+*
+* A FIXED 1..64 INTERVAL VECTOR TO ENABLE VECTOR
+* PROCESSING (NO LOOPS NECESSARY)
+*
+* DATA GENERATED BY THE FOLLOWING Virtue PROGRAMME:
+*
+* 64 .. MONADIC '         DATA       ' SWAP, PRINT; EACH.
+*
+*
+*****************************************************
+
+ISPACDATA =           *
+          DATA        1
+          DATA        2
+          DATA        3
+          DATA        4
+          DATA        5
+          DATA        6
+          DATA        7
+          DATA        8
+          DATA        9
+          DATA        10
+          DATA        11
+          DATA        12
+          DATA        13
+          DATA        14
+          DATA        15
+          DATA        16
+          DATA        17
+          DATA        18
+          DATA        19
+          DATA        20
+          DATA        21
+          DATA        22
+          DATA        23
+          DATA        24
+          DATA        25
+          DATA        26
+          DATA        27
+          DATA        28
+          DATA        29
+          DATA        30
+          DATA        31
+          DATA        32
+          DATA        33
+          DATA        34
+          DATA        35
+          DATA        36
+          DATA        37
+          DATA        38
+          DATA        39
+          DATA        40
+          DATA        41
+          DATA        42
+          DATA        43
+          DATA        44
+          DATA        45
+          DATA        46
+          DATA        47
+          DATA        48
+          DATA        49
+          DATA        50
+          DATA        51
+          DATA        52
+          DATA        53
+          DATA        54
+          DATA        55
+          DATA        56
+          DATA        57
+          DATA        58
+          DATA        59
+          DATA        60
+          DATA        61
+          DATA        62
+          DATA        63
+          DATA        64
+
+
+******************************************
+*
+* FLOATING POINT INTERVAL IN INTEGER STEPS
+*
+* NAME: RSPACE
+*
+* DESCRIPTION:
+*        AN INTERVAL FROM 1 TO (A1)
+*
+* ENTRY: A1 = LEFT ARGUMENT ADDRESS
+*        A3 = RESULT SPACE ADDRESS
+*        A4 = RESULT VECTOR LENGTH = (A1)
+*
+* EXIT: RESULT IN MEMORY AT A3
+*
+* USES: ...
+*
+* RESTRICTION:
+*       NO CHECKS ON THE VALIDITY OF THE
+*       OPERATION(S) ARE DONE ON THIS
+*       LEVEL OF EXECUTION
+*
+******************************************
+*
+RSPACE    =        *
+          A5       64            * LOAD THE WHOLE VECTOR
+          VL       A5
+          S4       ,A1           * GET THE INTERVAL
+          A0       RSPACDATA
+          V0       ,A0,1
+          V1       S0!V0         * START PREPARING THE NEXT POSSIBLE ITERATION
+          S5       S4            * KEEP TILL END
+*                                * NO HARM DONE IF NONE, AS THE OPRATIONS GO IN PARALLEL
+* PROCESS VECTORS LONGER THAN 64 ELEMENTS
+* ARRAYS MAY BE LARGER THAN THE PRESENT CRAY ADDRESS SPACE
+* WE CALCULATE WITH SCALARS
+         S7        S4            * PRESERVE LENGTH FOR CALCULATION
+         S2        <6
+         S1        S4
+         S1        S1&S2
+         A4        S1
+         S4        S1
+         S0        S1
+         JSN       SPACRLOP
+         A4        64
+         S4        A4
+*
+* PROCESS:
+*    
+*
+SPACRLOP VL        A4
+         A0        A3
+         ,A0,1     V1              * THE INTERVAL TO MEMORY
+*
+* CHECK FOR MORE ELEMENTS
+         A1        A1+A4            * A STRIDE 1
+         A3        A3+A4            * NO RIGHT ARGUMENT (A2)
+         S7        S7-S4
+         A4        64
+         S4        A4
+         S6        A4       
+         S0        S7               * END CHECKED WITH S7, VECTOR LENGTH COUNTER
+         V2        S4+FV0
+         JSZ       SPACRRET
+         V1        S0!V2
+         J         SPACRLOP
+*
+SPACRRET A4        S5               * RETURN THE VECTOR LENGTH IN A4
+         S4        S5
+         J         B00
+
+*****************************************************
+*
+*****************************************************
+
+*****************************************************
+*
+* A FIXED 1..64 INTERVAL VECTOR TO ENABLE VECTOR
+* PROCESSING (NO LOOPS NECESSARY)
+*
+* DATA GENERATION BY Virtue PROGRAMME:
+*
+* 64.0 .. MONADIC '         DATA       ' SWAP, PRINT; EACH.
+*
+*
+*****************************************************
+
+RSPACDATA =           *
+          DATA        1.0
+          DATA        2.0
+          DATA        3.0
+          DATA        4.0
+          DATA        5.0
+          DATA        6.0
+          DATA        7.0
+          DATA        8.0
+          DATA        9.0
+          DATA        10.0
+          DATA        11.0
+          DATA        12.0
+          DATA        13.0
+          DATA        14.0
+          DATA        15.0
+          DATA        16.0
+          DATA        17.0
+          DATA        18.0
+          DATA        19.0
+          DATA        20.0
+          DATA        21.0
+          DATA        22.0
+          DATA        23.0
+          DATA        24.0
+          DATA        25.0
+          DATA        26.0
+          DATA        27.0
+          DATA        28.0
+          DATA        29.0
+          DATA        30.0
+          DATA        31.0
+          DATA        32.0
+          DATA        33.0
+          DATA        34.0
+          DATA        35.0
+          DATA        36.0
+          DATA        37.0
+          DATA        38.0
+          DATA        39.0
+          DATA        40.0
+          DATA        41.0
+          DATA        42.0
+          DATA        43.0
+          DATA        44.0
+          DATA        45.0
+          DATA        46.0
+          DATA        47.0
+          DATA        48.0
+          DATA        49.0
+          DATA        50.0
+          DATA        51.0
+          DATA        52.0
+          DATA        53.0
+          DATA        54.0
+          DATA        55.0
+          DATA        56.0
+          DATA        57.0
+          DATA        58.0
+          DATA        59.0
+          DATA        60.0
+          DATA        61.0
+          DATA        62.0
+          DATA        63.0
+          DATA        64.0
+
+
+*******************************************
+*******************************************
+*******************************************
+EOPROG   =        *
+         S1       RT
+         S2       S1-S2
+         ENDP
+
+
+LEFT     DATA      *,132
+ENDLEFT  =         *
+         DATA      *,1                 * THE DATA SHALL NOT BE ALIGNED BETWEEN
+*                                      * BLOCKS TO PREVENT SAME LINE CONFLICT
+RIGHT    DATA      *,2048
+         DATA      *,1
+RESULT   DATA      *,2048
+
+******************************************************************
+*
+******************************************************************
+
+DATASPAC =         *
+* Virtue OUTPUT GOES HERE: (SEE PROGRAMME BELOW)
+*
+*
+ENDDATA  =         *
+
+         EXEC      *,*
+
+         END
