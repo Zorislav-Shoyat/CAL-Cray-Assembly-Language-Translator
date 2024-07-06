@@ -19,12 +19,9 @@ software for the (FPGA/emulation) resurected Cray-1 processor(s).
 
 At
 http://grgur.irb.hr/Cray-E2LP/CAL
-there is always the newest version of the Vitlersoft CAL, and in the
-'Executables' subdirectory compiled sources and executables for different
+there is a version of the Vitlersoft CAL, and in the
+'Executables' subdirectory some compiled sources and executables for different
 processor/OS combinations are provided.
-
-The sources of CAL can be downloaded at
-http://grgur.irb.hr/Cray-E2LP/CAL.src.tar
 
 The whole CAL directory, with Sources, Executables and Cray documentation can
 be downloaded as a gzipped tar file at
