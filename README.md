@@ -65,11 +65,11 @@ Cray-1 instructions and their translation. Make a 'tst.lst' file
 (with '... -l tst.lst...') and compare the results of translation with the 
 results in comments.
 
-In the Cray.docs subdirectory on http://grgur.irb.hr/Cray-E2LP/DSD_23_Cray-1_on_E2LP.pdf0.pdf the CAL
-description from Cray Research can be found. The documents are from
-bitsavers.org. Beware,presently the Vitlersoft CAL does not support
+The CAL Assembly language description from Cray Research can be found at https://bitsavers.org/pdf/cray/CAL/SR-0085_Symbolic_Machine_Instructions_Jan86.pdf. Beware, presently the Vitlersoft CAL does not support
 macro-instructions and other advanced Cray Assembly Language features
 described in these documents.
+
+General Cray-XMP documentation can be found at https://bitsavers.org/pdf/cray/CRAY_X-MP/
 
 There is also a subdirectory Examples. There are several examples of vector
 operations on vectors of integers, reals, complex numbers and quaternions, like
@@ -77,11 +77,12 @@ interval, addition, multiplication and division. These examples are actually
 derived from operations defined by Virtue verbs SPACE (INTERVAL), ADD, MULTIPLY,
 DIVIDE... (see http://grgur.irb.hr/Virtue).
 
-Additionally the file Monitor.CAL is included, which is a preliminary test
+Additionally the file BOOT.CAL is included, which is a preliminary test
 for the E2LP Cray-1 implementation, and may be consulted as an example of
-Cray Assembly Language Programme. This Monitor.CAL is actually written to boot
+Cray Assembly Language Programme. This BOOT.CAL is actually written to boot
 up any Cray-1/Cray-XMP compatible computer, however the UART part is specific
 to the implementation on the E2LP board.
+The TEST.CAL is a short series of tests, and it repeats a shorter text about Cray-1.
 
 For reading the Vitlersoft CAL sources use a tabstop of 3
 	(in vi/vim ':se ts=3')
