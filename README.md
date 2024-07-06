@@ -18,17 +18,17 @@ The Vitlersoft CAL is a resurection necessary to be able to write again
 software for the (FPGA/emulation) resurected Cray-1 processor(s).
 
 At
-http://grgur.irb.hr/Cray-EELP/CAL
+http://grgur.irb.hr/Cray-E2LP/CAL
 there is always the newest version of the Vitlersoft CAL, and in the
 'Executables' subdirectory compiled sources and executables for different
 processor/OS combinations are provided.
 
 The sources of CAL can be downloaded at
-http://grgur.irb.hr/Cray-EELP/CAL.src.tar
+http://grgur.irb.hr/Cray-E2LP/CAL.src.tar
 
 The whole CAL directory, with Sources, Executables and Cray documentation can
 be downloaded as a gzipped tar file at
-http://grgur.irb.hr/Cray-EELP/CAL.tar.gz
+http://grgur.irb.hr/Cray-E2LP/CAL.tar.gz
 
 
 INSTALLATION:
@@ -72,7 +72,7 @@ Cray-1 instructions and their translation. Make a 'tst.lst' file
 (with '... -l tst.lst...') and compare the results of translation with the 
 results in comments.
 
-In the Cray.docs subdirectory on http://grgur.irb.hr/Cray-EELP/CAL the CAL
+In the Cray.docs subdirectory on http://grgur.irb.hr/Cray-E2LP/DSD_23_Cray-1_on_E2LP.pdf0.pdf the CAL
 description from Cray Research can be found. The documents are from
 bitsavers.org. Beware,presently the Vitlersoft CAL does not support
 macro-instructions and other advanced Cray Assembly Language features
