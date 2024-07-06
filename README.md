@@ -23,6 +23,14 @@ there is a version of the Vitlersoft CAL, and in the
 'Executables' subdirectory some compiled sources and executables for different
 processor/OS combinations are provided.
 
+IMPORTANT:
+
+For reading the Vitlersoft CAL sources use a tabstop of 3
+	(in vi/vim ':se ts=3')
+ 
+For reading the CAL Translation Listings use a tabstop of 9 or more
+	(':se ts=9')
+
 
 INSTALLATION:
 
@@ -47,7 +55,7 @@ Further instructions are in the 'Makefile'
 If there are problems with compilation of a specific machine (i.e. no 'cc', but
 'gcc', different compilation flags etc.), please see the Makefile. The
 "Makefile" shall be changed for individual compilations on different Operating
-Systems. The 'makefile.COMMON' generally does not to have changed. It is common
+Systems. The 'makefile.COMMON' generally does not haa to be changed. It is common
 to all different possible C compilation environments.
 
 To compile you have to have flex (and C compiler, naturally) installed.
@@ -83,11 +91,6 @@ Cray Assembly Language Programme. This BOOT.CAL is actually written to boot
 up any Cray-1/Cray-XMP compatible computer, however the UART part is specific
 to the implementation on the E2LP board.
 The TEST.CAL is a short series of tests, and it repeats a shorter text about Cray-1.
-
-For reading the Vitlersoft CAL sources use a tabstop of 3
-	(in vi/vim ':se ts=3')
-For reading the CAL Translation Listings use a tabstop of 9 or more
-	(':se ts=9')
 
 The Vitlersoft CAL Translator ERROR reporting on non-recognised constructs
 (i.e. non-CAL/Cray-1 combinations, as for example V1 ,A1,1) is very primitive,
