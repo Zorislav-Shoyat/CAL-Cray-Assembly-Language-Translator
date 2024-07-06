@@ -23,10 +23,6 @@ there is a version of the Vitlersoft CAL, and in the
 'Executables' subdirectory some compiled sources and executables for different
 processor/OS combinations are provided.
 
-The whole CAL directory, with Sources, Executables and Cray documentation can
-be downloaded as a gzipped tar file at
-http://grgur.irb.hr/Cray-E2LP/CAL.tar.gz
-
 
 INSTALLATION:
 
