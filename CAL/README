@@ -17,33 +17,7 @@ Cray-1/Cray-XMP series software, specifically development environment(s).
 The Vitlersoft CAL is a resurection necessary to be able to write again
 software for the (FPGA/emulation) resurected Cray-1 processor(s).
 
-At
-http://grgur.irb.hr/Cray-EELP/CAL
-there is always the newest version of the Vitlersoft CAL, and in the
-'Executables' subdirectory compiled sources and executables for different
-processor/OS combinations are provided.
-
-The sources of CAL can be downloaded at
-http://grgur.irb.hr/Cray-EELP/CAL.src.tar
-
-The whole CAL directory, with Sources, Executables and Cray documentation can
-be downloaded as a gzipped tar file at
-http://grgur.irb.hr/Cray-EELP/CAL.tar.gz
-
-
 INSTALLATION:
-
-From Executables:
-
-- Find the appropriate subdirectory for your machine/OS combination in the
-CAL/Executables subdirectory.
-- Copy the executable file (CAL or CAL.exe, depending on the OS) to an appropriate
-location in your $PATH
-- For Windows execution (UWIN), it is possible that some of the .dll files
-provided at
-http://grgur.irb.hr/Virtue/Generic
-will be necessary. The Windows system will complain about which file is missing.
-
 
 From Sources:
 
